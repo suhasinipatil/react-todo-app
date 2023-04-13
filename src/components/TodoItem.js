@@ -1,14 +1,16 @@
 import { useState, useRef } from 'react';
 import styles from './styles/TodoItem.module.css';
+import { useTodosStore } from "store";
 import { FaTrash } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
-import { useTodosContext } from 'context/TodosContext';
 
 const TodoItem = ({itemProp}) => {
     const [editing, setEditing] = useState(false);
     const editInputRef = useRef(null);
-    const { handleChange, delTodo, setUpdate } = useTodosContext();
-    
+    const handleChange = useTodosStore((state) => state.handleChange);
+    const delTodo = useTodosStore((state) => state.delTodo);
+    const setUpdate = useTodosStore((state) => state.setUpdate);
+
     const completedStyle = {
         fontStyle: 'italic',
         color: '#595959',
@@ -40,10 +42,10 @@ const TodoItem = ({itemProp}) => {
             <div className={styles.content}>
                 <input type="checkbox" checked={itemProp.completed} onChange={() =>handleChange(itemProp.id)}/>
                 <button onClick={handleEditing}>
-                    <AiFillEdit style={{ color: "#5e5e5e", fontSize: "16px" }}/>
+                    <AiFillEdit/>
                 </button>
                 <button onClick={() => delTodo(itemProp.id)}>
-                    <FaTrash style={{ color: "#5e5e5e", fontSize: "16px" }}/>
+                    <FaTrash/>
                 </button>
                 <span style={itemProp.completed ? completedStyle : null}>
                     {itemProp.title}

@@ -1,9 +1,8 @@
 import TodoItem from "./TodoItem";
-import { useTodosContext } from "context/TodosContext";
-
+import { useTodosStore } from "store";
 
 const TodosList = () => {
-    const { todos } = useTodosContext();
+    const todos = useTodosStore((state) => state.todos);
 
     return(
         <ul>
