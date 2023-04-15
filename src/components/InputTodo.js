@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useTodosStore } from "store";
 import { FaPlusCircle } from "react-icons/fa";
-import { IconContext } from "react-icons";
-import { useTodosContext } from "context/TodosContext";
 
 const InputTodo = () => {
     const [title, setTitle] = useState('');
