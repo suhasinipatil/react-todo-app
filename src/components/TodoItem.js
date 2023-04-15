@@ -1,15 +1,13 @@
 import { useState, useRef } from 'react';
 import styles from './styles/TodoItem.module.css';
-import { useTodosStore } from "store";
+import { useTodosContext } from 'context/TodosContext';
 import { FaTrash } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 
 const TodoItem = ({itemProp}) => {
     const [editing, setEditing] = useState(false);
     const editInputRef = useRef(null);
-    const handleChange = useTodosStore((state) => state.handleChange);
-    const delTodo = useTodosStore((state) => state.delTodo);
-    const setUpdate = useTodosStore((state) => state.setUpdate);
+    const { handleChange, delTodo, setUpdate } = useTodosContext();
 
     const completedStyle = {
         fontStyle: 'italic',
