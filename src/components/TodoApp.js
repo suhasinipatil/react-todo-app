@@ -5,15 +5,21 @@ import  About  from "../routes/About.js";
 import  Login  from "../routes/Login.js";
 import  Profile  from "../routes/Profile.js";
 import NotMatch from "routes/NotMatch.js";
+import Layout from "./Layout.js";
+import SinglePage from "routes/SinglePage.js";
 
 const TodoApp = () => {
     return (
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="about" element={<About/> } />
-        <Route path="login" element={<Login/> } />
-        <Route path="profile" element={<Profile/>} />
-        <Route path="*" element={<NotMatch/>} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />}/>
+          <Route path="about" element={<About/> } >
+            <Route path=":slug" element={<SinglePage />} />
+          </Route>
+          <Route path="login" element={<Login/> } />
+          <Route path="profile" element={<Profile/>} />
+          <Route path="*" element={<NotMatch/>} />
+        </Route>
       </Routes>
     );
   };

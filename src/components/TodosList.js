@@ -1,5 +1,5 @@
 import TodoItem from "./TodoItem";
-import { useTodosContext } from "context/TodosContext";
+import { useTodosContext } from "../context/TodosContext";
 
 const TodosList = () => {
     const { todos } = useTodosContext();

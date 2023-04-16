@@ -4,14 +4,12 @@ import TodosLogic from "../components/TodosLogic.js";
 
 const Home = () => {
     return (
-      <React.Fragment>
-        <div className="wrapper">
+        //<div className="wrapper">
           <div className="todos">
             <Header/>
             <TodosLogic/>
           </div>
-        </div>
-      </React.Fragment>
+        //</div>
     );
   };
   export default Home;

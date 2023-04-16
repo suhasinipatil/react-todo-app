@@ -5,7 +5,7 @@ import { FaPlusCircle } from "react-icons/fa";
 const InputTodo = () => {
     const [title, setTitle] = useState('');
     const [message, setMessage] = useState('');
-    const addTodoItem = useTodosContext();
+    const { addTodoItem } = useTodosContext();
 
     const handleChange = (e) => {
         setTitle(e.target.value);

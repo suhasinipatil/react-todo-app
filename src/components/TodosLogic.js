@@ -1,12 +1,13 @@
+import { TodosProvider } from "context/TodosContext";
 import InputTodo from "./InputTodo";
 import TodosList from "./TodosList";
 
 const TodosLogic = () => {
     return(
-        <div>
+        <TodosProvider>
             <InputTodo/>
             <TodosList/>
-        </div>
+        </TodosProvider>
     );
 };
 
