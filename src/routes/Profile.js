@@ -1,4 +1,16 @@
+import { useAuthContext } from "context/AuthContext";
+import styles from "../components/styles/Profile.module.css";
+
 const Profile = () => {
-    return <div>Profile page</div>
+    const { user } = useAuthContext();
+
+    return (
+        <div>
+            <h1>Profile</h1>
+            <div className={styles.profile}>
+                <h2>Hello, {user}</h2>
+            </div>
+        </div>
+    );
 };
 export default Profile;
