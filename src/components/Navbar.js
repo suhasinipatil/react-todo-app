@@ -15,6 +15,7 @@ const Navbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);
     const navigate = useNavigate();
     const { user, logout} = useAuthContext();
+    
     const handleLogout = () => {
         logout();
         navigate('/login');

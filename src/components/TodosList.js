@@ -6,8 +6,8 @@ const TodosList = () => {
 
     return(
         <ul>
-            {todos.map((todo) => (
-                <TodoItem key={todo.id} itemProp={todo}/>
+            {todos.length != 0 && todos.map((todo) => (
+                <TodoItem itemProp={todo}/>
             ))}
         </ul>
     );

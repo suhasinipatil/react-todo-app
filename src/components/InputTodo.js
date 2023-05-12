@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useTodosContext } from "context/TodosContext";
 import { FaPlusCircle } from "react-icons/fa";
+import { useAuthContext } from "context/AuthContext";
 
 const InputTodo = () => {
     const [title, setTitle] = useState('');
     const [message, setMessage] = useState('');
     const { addTodoItem } = useTodosContext();
+    const { currentUser } = useAuthContext();
 
     const handleChange = (e) => {
         setTitle(e.target.value);
@@ -14,7 +16,9 @@ const InputTodo = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(title.trim()){
-            addTodoItem(title);
+            //console.log("id " + currentUser.id);
+            //console.log("user " + currentUser.username);
+            addTodoItem(title, currentUser.id);
             setTitle('');
             setMessage('');
         }else{

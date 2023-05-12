@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../components/styles/Login.module.css";
 import { useAuthContext } from "context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,12 +13,26 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!username)
-            return;
-        login(username);
-        setUsername('');
-        navigate(from, {replace: true});
+        //api is returning a id and username in json format use id also to login
+        fetch('http://localhost:8889/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username}),
+        }).then(res => res.json())
+        .then(data => {
+            //console.log(data.id);
+            setUsername(data.username);
+            if(!username)
+                return;
+            login(username, data.id);
+            setUsername('');
+            navigate(from, {replace: true});
+        })
+        .catch(err => console.log(err));
     }
+
     return (
         <div>
             <Header>

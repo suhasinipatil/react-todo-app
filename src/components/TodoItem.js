@@ -10,7 +10,7 @@ const TodoItem = ({itemProp}) => {
     const editInputRef = useRef(null);
     const { handleChange, delTodo, setUpdate } = useTodosContext();
     const {user} = useAuthContext();
-    console.log(user);
+    //console.log(user);
 
     const completedStyle = {
         fontStyle: 'italic',
@@ -41,7 +41,7 @@ const TodoItem = ({itemProp}) => {
     return (
         <li className={styles.item}>
             <div className={styles.content}>
-                <input type="checkbox" checked={itemProp.completed} onChange={() =>handleChange(itemProp.id)}/>
+                <input type="checkbox" onChange={() =>handleChange(itemProp.id)}/>
                 {user && (
                     <button onClick={handleEditing}>
                         <AiFillEdit
@@ -51,7 +51,7 @@ const TodoItem = ({itemProp}) => {
                 <button onClick={() => delTodo(itemProp.id)}>
                     <FaTrash/>
                 </button>
-                <span style={itemProp.completed ? completedStyle : null}>
+                <span >
                     {itemProp.title}
                 </span>
             </div>

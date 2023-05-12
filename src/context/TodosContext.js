@@ -4,9 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 const TodosContext = createContext(null);
 
 export const TodosProvider = ({ children }) => {
-    const [todos, setTodos] = useState(getInitialTodos());
+    const [todos, setTodos] = useState([]);
     
     const handleChange = (id) => {
+        if(todos == null) return;
         setTodos((prevState) => 
             prevState.map((todo) => {
                 if(todo.id === id){
@@ -21,6 +22,7 @@ export const TodosProvider = ({ children }) => {
     }
 
     const delTodo = (id) => {
+        if(todos == null) return;
         setTodos([
             ...todos.filter((todo) => {
                 return todo.id !== id;
@@ -28,16 +30,32 @@ export const TodosProvider = ({ children }) => {
         ]);
     };
 
-    const addTodoItem = (title) => {
+    const addTodoItem = (title, userid) => {
+        console.log("userid " + userid);
         const newTodo = {
-            id : uuidv4(),
+            userId: userid,
             title: title,
             completed: false,
         };
-        setTodos([...todos, newTodo]);
+        console.log(newTodo);
+        fetch('http://localhost:8889/todos',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify(newTodo),
+        }).then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data)
+                setTodos([...todos, data]);
+        })
+        .catch(err => console.log(err));
+        
     };
 
     const setUpdate = (updatedTitle, id) => {
+        if(todos == null) return;
         setTodos(
             todos.map((todo) => {
                 if(todo.id === id){

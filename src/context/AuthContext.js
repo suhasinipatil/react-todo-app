@@ -2,9 +2,20 @@ import { useState, useContext, createContext, useEffect } from "react";
 
 const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(getUsername());
-    const login = (user) => setUser(user);
-    const logout = () => setUser(null);
+    const [user, setUser] = useState('');
+    const [currentUser, setCurrentUser] = useState({username: '', id: -1});
+
+    const login = (currentuser, currentuserId) => {
+        const newUser = {...user, username: currentuser, id: currentuserId};
+        setCurrentUser(newUser);
+        setUser(currentuser);
+        console.log("user login " + currentuser);
+        console.log("userid login " + currentuserId);
+    };
+    const logout = () => {
+        setUser(null);
+        setCurrentUser({username: '', id: -1});
+    }
 
     function getUsername() {
         const temp = localStorage.getItem('username');
@@ -17,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{user, login, logout}}>
+        <AuthContext.Provider value={{user, currentUser, login, logout}}>
             {children}
         </AuthContext.Provider>
     );
