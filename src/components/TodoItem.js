@@ -51,7 +51,7 @@ const TodoItem = ({itemProp}) => {
                 <button onClick={() => delTodo(itemProp.id)}>
                     <FaTrash/>
                 </button>
-                <span >
+                <span style={itemProp.completed ? completedStyle : null}>
                     {itemProp.title}
                 </span>
             </div>

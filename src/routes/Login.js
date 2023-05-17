@@ -13,7 +13,6 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //api is returning a id and username in json format use id also to login
         fetch('http://localhost:8889/login', {
             method: 'POST',
             headers: {
@@ -22,7 +21,6 @@ const Login = () => {
             body: JSON.stringify({username}),
         }).then(res => res.json())
         .then(data => {
-            //console.log(data.id);
             setUsername(data.username);
             if(!username)
                 return;

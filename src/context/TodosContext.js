@@ -7,7 +7,7 @@ export const TodosProvider = ({ children }) => {
     const [todos, setTodos] = useState([]);
     
     const handleChange = (id) => {
-        if(todos == null) return;
+        if(todos.length === 0) return;
         setTodos((prevState) => 
             prevState.map((todo) => {
                 if(todo.id === id){
@@ -22,7 +22,7 @@ export const TodosProvider = ({ children }) => {
     }
 
     const delTodo = (id) => {
-        if(todos == null) return;
+        if(todos.length === 0) return;
         setTodos([
             ...todos.filter((todo) => {
                 return todo.id !== id;
@@ -31,13 +31,11 @@ export const TodosProvider = ({ children }) => {
     };
 
     const addTodoItem = (title, userid) => {
-        console.log("userid " + userid);
         const newTodo = {
             userId: userid,
             title: title,
             completed: false,
         };
-        console.log(newTodo);
         fetch('http://localhost:8889/todos',{
             method: 'POST',
             headers: {
@@ -55,7 +53,7 @@ export const TodosProvider = ({ children }) => {
     };
 
     const setUpdate = (updatedTitle, id) => {
-        if(todos == null) return;
+        if(todos.length === 0) return;
         setTodos(
             todos.map((todo) => {
                 if(todo.id === id){

@@ -7,7 +7,7 @@ const TodosList = () => {
     return(
         <ul>
             {todos.length != 0 && todos.map((todo) => (
-                <TodoItem itemProp={todo}/>
+                <TodoItem key={todo.id} itemProp={todo}/>
             ))}
         </ul>
     );
