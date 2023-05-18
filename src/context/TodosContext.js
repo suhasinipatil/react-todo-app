@@ -1,10 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 const TodosContext = createContext(null);
 
 export const TodosProvider = ({ children }) => {
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState([{id: 89, title: ' ', completed: false}]);
     
     const handleChange = (id) => {
         if(todos.length === 0) return;
@@ -44,12 +43,24 @@ export const TodosProvider = ({ children }) => {
             body: JSON.stringify(newTodo),
         }).then(res => res.json())
         .then(data => {
-            console.log(data);
             if(data)
                 setTodos([...todos, data]);
         })
         .catch(err => console.log(err));
-        
+    };
+
+    const updateTodoList = (userid) => {
+        if(userid === undefined) return;
+        fetch('http://localhost:8889/todos/' + userid, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+                }).then(res => res.json())
+                .then(data => {
+                    if(data)
+                        setTodos(data);
+                });
     };
 
     const setUpdate = (updatedTitle, id) => {
@@ -64,12 +75,6 @@ export const TodosProvider = ({ children }) => {
         );
     };
 
-    function getInitialTodos() {
-        const temp = localStorage.getItem('todos');
-        const savedTodos = JSON.parse(temp);
-        return savedTodos || [];
-    }
-
     useEffect(() => {
         const temp = JSON.stringify(todos);
         localStorage.setItem('todos', temp);
@@ -83,6 +88,7 @@ export const TodosProvider = ({ children }) => {
                 delTodo,
                 addTodoItem,
                 setUpdate,
+                updateTodoList,
         }}>
             {children}
         </TodosContext.Provider>

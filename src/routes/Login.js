@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../components/styles/Login.module.css";
 import { useAuthContext } from "context/AuthContext";
+import { useTodosContext } from "context/TodosContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "components/Header";
 
@@ -10,6 +11,8 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.pathname || '/';
+    // const { todos } = useTodosContext();
+    // console.log(todos);
 
     const handleSubmit = (e) => {
         e.preventDefault();
