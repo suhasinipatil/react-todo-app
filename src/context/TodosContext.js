@@ -22,11 +22,17 @@ export const TodosProvider = ({ children }) => {
 
     const delTodo = (id) => {
         if(todos.length === 0) return;
-        setTodos([
-            ...todos.filter((todo) => {
-                return todo.id !== id;
-            }),
-        ]);
+        fetch('http://localhost:8889/todos/' + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+        })
+        .then(() => {
+            const updatedTodos = todos.filter((todo) => todo.id !== id);
+            setTodos(updatedTodos);
+        })
+        .catch(err => console.log(err));
     };
 
     const addTodoItem = (title, userid) => {
@@ -65,14 +71,25 @@ export const TodosProvider = ({ children }) => {
 
     const setUpdate = (updatedTitle, id) => {
         if(todos.length === 0) return;
-        setTodos(
-            todos.map((todo) => {
-                if(todo.id === id){
-                    todo.title = updatedTitle;
+        fetch('http://localhost:8889/todos/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify({title : updatedTitle}),
+        }).then(res => res.json())
+        .then(updatedTodo => {
+            const updatedTodos = todos.map((todo) => {
+                if(todo.id === updatedTodo.id){
+                    todo.title = updatedTodo.title;
+                    return todo;
                 }
                 return todo;
-            })
-        );
+            });
+            console.log(updatedTodos);
+            setTodos(updatedTodos);
+        })
+        .catch(err => console.log(err));
     };
 
     useEffect(() => {
