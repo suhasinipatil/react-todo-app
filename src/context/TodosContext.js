@@ -3,21 +3,29 @@ import { createContext, useContext, useState, useEffect } from "react";
 const TodosContext = createContext(null);
 
 export const TodosProvider = ({ children }) => {
-    const [todos, setTodos] = useState([{id: 89, title: ' ', completed: false}]);
+    const [todos, setTodos] = useState([]);
     
     const handleChange = (id) => {
         if(todos.length === 0) return;
-        setTodos((prevState) => 
-            prevState.map((todo) => {
-                if(todo.id === id){
-                    return{
-                        ...todo,
-                        completed: !todo.completed,
-                    };
+        //console.log(todos.filter((todo) => todo.id === id)[0].completed);
+        fetch('http://localhost:8889/todos/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify({completed : !todos.filter((todo) => todo.id === id)[0].completed}),
+        }).then(res => res.json())
+        .then(updatedTodo => {
+            const updatedTodos = todos.map((todo) => {
+                if(todo.id === updatedTodo.id){
+                    todo.completed = updatedTodo.completed;
+                    return todo;
                 }
                 return todo;
-            })
-        );
+            });
+            //console.log(updatedTodos);
+            setTodos(updatedTodos);
+        });
     }
 
     const delTodo = (id) => {
@@ -86,7 +94,7 @@ export const TodosProvider = ({ children }) => {
                 }
                 return todo;
             });
-            console.log(updatedTodos);
+            //console.log(updatedTodos);
             setTodos(updatedTodos);
         })
         .catch(err => console.log(err));
