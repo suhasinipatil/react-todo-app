@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const TodosContext = createContext(null);
 
@@ -99,11 +99,6 @@ export const TodosProvider = ({ children }) => {
         })
         .catch(err => console.log(err));
     };
-
-    useEffect(() => {
-        const temp = JSON.stringify(todos);
-        localStorage.setItem('todos', temp);
-    } , [todos]);
 
     return (
         <TodosContext.Provider 
