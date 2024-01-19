@@ -11,7 +11,7 @@ const aboutData = [
       slug: 'about-developer',
       title: 'About the developer',
       description:
-        'Ibas Majid founded ibaslogic.com to experiment with new web features and write actionable guides. Follow Ibas on Twitter @ibaslogic to learn modern web development.',
+        'I'm Suhasini, a tech aficionado venturing into the captivating landscapes of Java and React. By day, I immerse myself in the coding universe, crafting solutions and navigating the ever-evolving tech scene.',
     },
   ];
   
